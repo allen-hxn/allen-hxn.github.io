@@ -154,6 +154,75 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-testPost" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/24/testPost/">MySQL 当记录不存在时插入（insert if not exists）</a>
+    </h1>
+  
+
+        
+        <a href="/2017/10/24/testPost/" class="archive-article-date">
+  	<time datetime="2017-10-24T14:15:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在 MySQL 中，插入（insert）一条记录很简单，但是一些特殊应用，在插入记录前，需要检查这条记录是否已经存在，只有当记录不存在时才执行插入操作，本文介绍的就是这个问题的解决方案。</p>
+<p>问题：我创建了一个表来存放客户信息，我知道可以用 insert 语句插入信息到表中，但是怎么样才能保证不会插入重复的记录呢？</p>
+<p>答案：可以通过使用 EXISTS 条件句防止插入重复记录。</p>
+<h3 id="示例一：插入多条记录"><a href="#示例一：插入多条记录" class="headerlink" title="示例一：插入多条记录"></a>示例一：插入多条记录</h3><p>假设有一个主键为 client_id 的 clients 表，可以使用下面的语句：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">INSERT INTO clients</div><div class="line">(client_id, client_name, client_type)</div><div class="line">SELECT supplier_id, supplier_name, &apos;advertising&apos;</div><div class="line">FROM suppliers</div><div class="line">WHERE not exists (select * from clients</div><div class="line">where clients.client_id = suppliers.supplier_id);</div></pre></td></tr></table></figure>
+<h3 id="示例一：插入单条记录"><a href="#示例一：插入单条记录" class="headerlink" title="示例一：插入单条记录"></a>示例一：插入单条记录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">INSERT INTO clients</div><div class="line">(client_id, client_name, client_type)</div><div class="line">SELECT 10345, &apos;IBM&apos;, &apos;advertising&apos;</div><div class="line">FROM dual</div><div class="line">WHERE not exists (select * from clients</div><div class="line">where clients.client_id = 10345);</div></pre></td></tr></table></figure>
+<p>使用 dual 做表名可以让你在 select 语句后面直接跟上要插入字段的值，即使这些值还不存在当前表中。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/10/24/testPost/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-postName" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
