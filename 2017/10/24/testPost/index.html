@@ -9,12 +9,14 @@
   <title>MySQL 当记录不存在时插入（insert if not exists） | Allenhu的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="在 MySQL 中，插入（insert）一条记录很简单，但是一些特殊应用，在插入记录前，需要检查这条记录是否已经存在，只有当记录不存在时才执行插入操作，本文介绍的就是这个问题的解决方案。 问题：我创建了一个表来存放客户信息，我知道可以用 insert 语句插入信息到表中，但是怎么样才能保证不会插入重复的记录呢？ 答案：可以通过使用 EXISTS 条件句防止插入重复记录。 示例一：插入多条记录假设有">
+<meta name="keywords" content="mysql,insert">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MySQL 当记录不存在时插入（insert if not exists）">
 <meta property="og:url" content="http://yoursite.com/2017/10/24/testPost/index.html">
 <meta property="og:site_name" content="Allenhu的博客">
 <meta property="og:description" content="在 MySQL 中，插入（insert）一条记录很简单，但是一些特殊应用，在插入记录前，需要检查这条记录是否已经存在，只有当记录不存在时才执行插入操作，本文介绍的就是这个问题的解决方案。 问题：我创建了一个表来存放客户信息，我知道可以用 insert 语句插入信息到表中，但是怎么样才能保证不会插入重复的记录呢？ 答案：可以通过使用 EXISTS 条件句防止插入重复记录。 示例一：插入多条记录假设有">
-<meta property="og:updated_time" content="2017-10-24T14:20:32.030Z">
+<meta property="og:locale" content="Zh-CN">
+<meta property="og:updated_time" content="2017-10-24T14:35:50.738Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL 当记录不存在时插入（insert if not exists）">
 <meta name="twitter:description" content="在 MySQL 中，插入（insert）一条记录很简单，但是一些特殊应用，在插入记录前，需要检查这条记录是否已经存在，只有当记录不存在时才执行插入操作，本文介绍的就是这个问题的解决方案。 问题：我创建了一个表来存放客户信息，我知道可以用 insert 语句插入信息到表中，但是怎么样才能保证不会插入重复的记录呢？ 答案：可以通过使用 EXISTS 条件句防止插入重复记录。 示例一：插入多条记录假设有">
@@ -51,6 +53,8 @@
 		<hgroup>
 		  <h1 class="header-author"><a href="/">Allen Hu</a></h1>
 		</hgroup>
+		
+		<p class="header-subtitle">厚积薄发</p>
 		
 
 		<nav class="header-menu">
@@ -109,6 +113,8 @@
 			<hgroup>
 			  <h1 class="header-author js-header-author">Allen Hu</h1>
 			</hgroup>
+			
+			<p class="header-subtitle"><i class="icon icon-quo-left"></i>厚积薄发<i class="icon icon-quo-right"></i></p>
 			
 			
 			
@@ -209,6 +215,21 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">insert</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -397,6 +418,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">insert</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>
