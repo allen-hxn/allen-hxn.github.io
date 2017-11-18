@@ -159,6 +159,104 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-laradock" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/18/laradock/">laradock</a>
+    </h1>
+  
+
+        
+        <a href="/2017/11/18/laradock/" class="archive-article-date">
+  	<time datetime="2017-11-18T13:23:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="window使用docker搭建php运行环境"><a href="#window使用docker搭建php运行环境" class="headerlink" title="window使用docker搭建php运行环境"></a>window使用docker搭建php运行环境</h2><p>入坑两年多，每次在换新电脑或者换系统的时候要折腾很久去配置好php的环境。配置好了还要去设置多个虚拟主机，还要配置php扩展，又要涉及到不同php的版本来回切换。对于新手来说，集成环境已足够，wamp、xampp、phpstudy，只需要点击几个按钮就可以启动服务，开始编程之旅了。但是集成环境对自定义需求支持不高，有些特别的设置又要自己去手动设置，特别是在多个项目使用不同的php版本，需要切换版本的时候。<br>现在有了docker，就可以将你所需要的服务存在一个docker配置文件中，等下次换电脑就可以完整的将环境迁移过来。在需要不同的服务的时候，通过几个简单的命令行，就可以轻松安装。</p>
+<h4 id="什么是Docker"><a href="#什么是Docker" class="headerlink" title="什么是Docker"></a>什么是Docker</h4><p>Docker是一个开源的引擎，可以轻松的为任何应用创建一个轻量级的、可移植的、自给自足的容器。开发者在笔记本上编译测试通过的容器可以批量地在生产环境中部署，包括VMs（虚拟机）、bare metal、OpenStack 集群和其他的基础应用平台。</p>
+<h4 id="Docker-vs-Vagrant"><a href="#Docker-vs-Vagrant" class="headerlink" title="Docker vs Vagrant"></a>Docker vs Vagrant</h4><p>从时间上来看，Vagrant启动虚拟机需要数分钟，而Docker只需数秒；从体量上来看，Vagrant提供的是完整的虚拟机，而Docker提供的是轻量级的虚拟容器，这些虚拟容器共享同一个内核并且允许在独立进程中运行；此外，从应用范围来说，Vagrant只能用于开发环境，而Docker即可用于开发环境也可用于生产环境。</p>
+<h4 id="LaraDock-vs-Homestead"><a href="#LaraDock-vs-Homestead" class="headerlink" title="LaraDock vs Homestead"></a>LaraDock vs Homestead</h4><p>类比Docker和Vagrant，LaraDock和Homestead都能够为我们提供完整的虚拟开发环境，LaraDock是用于管理控制Docker的工具，而Homestead是用于管理控制完整虚拟机（如VirtualBox+Ubuntu）的工具，LaraDock运行速度比Homestead更快。</p>
+<h4 id="window-docker安装"><a href="#window-docker安装" class="headerlink" title="window docker安装"></a>window docker安装</h4><ol>
+<li>windows按照docker的基本要求</li>
+</ol>
+<ul>
+<li>64为操作系统，win7或者更高 </li>
+<li>支持“ Hardware Virtualization Technology”，并且，“virtualization ”可用</li>
+</ul>
+<ol>
+<li>具体安装步骤</li>
+</ol>
+<p>即安装Docker Toolbox，同时还附加安装</p>
+<ul>
+<li>Docker Client for Windows</li>
+<li>Docker Toolbox management tool and ISO</li>
+<li>Oracle VM VirtualBox</li>
+<li>Git MSYS-git UNIX tools<br>不用担心，下载的Docker Toolbox已经完全包含了这几个软件，直接安装就可以了<blockquote>
+<p>对于window10用户来说，可以不用virtualbox,可借助开启Hyper-V<br>对于已经安装virtualbox和git的用户在安装的时候可以取消相应的安装勾选</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="使用laradock"><a href="#使用laradock" class="headerlink" title="使用laradock"></a>使用laradock</h4><p>laradock 是通过 docker-compose 来构建的，旨在方便地提供 laravel 的运行环境。做适当的修改可以很方便的当做 php 的开发环境。</p>
+<p><strong>安装</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git clone https://github.com/laradock/laradock.git</div></pre></td></tr></table></figure>
+<p><strong>简介</strong></p>
+<p>进入到 laradock 的目录，看到有很多文件夹和文件，其中最重要的就是 env-example,docker-compose.yml以及各个目录里的 Dockerfile 文件了。env-example 的环境配置文件的样例，后两者有很多变量都是在这个文件中定义的。</p>
+<p><strong>初运行</strong></p>
+<p>启动 docker，进入到 laradock 的目录，执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">cp env-example .env  </div><div class="line">docker-compose up -d mysql redis nginx # 启动相关容器</div><div class="line">docker-compose ps # 查看进程</div><div class="line">docker-compose exec 容器名字 sh # 进入相关容器</div></pre></td></tr></table></figure></p>
+<p>通过ps可以看到有6个进程启动了，分别是 application, workspace, php-fpm, nginx, redis, mysql。 其中 php-fpm 是 nginx 所依赖的容器， appliction 代表整个应用，workspace 是主要用来执行 php-cli 命令的容器，例如 artisan, composer, phpunit等。</p>
+<p>配置</p>
+<p>例如 文件的目录关系如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">/dev</div><div class="line">-  laradock</div><div class="line">-  code</div><div class="line">-    project-1</div><div class="line">-    project-2</div></pre></td></tr></table></figure>
+<p>打开 .env 文件，修改 APPLICATION 的值为项目文件的相对路径，APPLICATION=../code/ 这个路径会映射到 worksapce 容器的 /var/www/ 目录上，（注意任何修改配置文件都需要执行 docker-compose build 容器名字 重新构建相关容器）。进入 nginx/sites 目录，执行 cp project-1.conf.example project-1.conf，修改 docker 让它可以挂载 /dev 目录后，执行 docker-compose restart nginx 重启 nginx ,本地绑定 host 127.0.0.1 project-1.dev，在浏览器中输入 <a href="http://project-1.dev" target="_blank" rel="external">http://project-1.dev</a> 应该就可以看到效果了。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/11/18/laradock/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-testPost" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
